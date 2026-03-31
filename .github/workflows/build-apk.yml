@@ -6,56 +6,62 @@ on:
   workflow_dispatch:
 
 env:
-  FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
+  FORCE_JAVASCRIPT_ACTIONS_TO_NODE20: true
 
 jobs:
   build:
     runs-on: ubuntu-latest
 
     steps:
-    - name: Checkout code
-      uses: actions/checkout@v4
+      - name: Checkout code
+        uses: actions/checkout@v4
 
-    - name: Setup Node.js
-      uses: actions/setup-node@v4
-      with:
-        node-version: '22'
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
 
-    - name: Setup Java
-      uses: actions/setup-java@v4
-      with:
-        distribution: 'temurin'
-        java-version: '17'
+      - name: Setup Java
+        uses: actions/setup-java@v4
+        with:
+          distribution: 'temurin'
+          java-version: '17'
 
-    - name: Setup Android SDK
-      uses: android-actions/setup-android@v3
+      - name: Setup Android SDK
+        uses: android-actions/setup-android@v3
 
-    - name: Install dependencies
-      run: npm install
+      - name: Accept Android SDK licenses
+        run: yes | sdkmanager --licenses
 
-    - name: Build web app
-      run: npm run build
+      - name: Install Android SDK platforms
+        run: sdkmanager "platforms;android-33" "build-tools;33.0.0"
 
-    - name: Install Capacitor
-      run: npm install @capacitor/core @capacitor/cli @capacitor/android
+      - name: Install dependencies
+        run: npm ci
 
-    - name: Add Android platform
-      run: |
-        if [ ! -d android ]; then
-          npx cap add android
-        fi
+      - name: Build web app
+        run: npm run build
 
-    - name: Sync Capacitor
-      run: npx cap sync
+      - name: Add Android platform
+        run: |
+          if [ ! -d android ]; then
+            npx cap add android
+          fi
 
-    - name: Build APK
-      run: |
-        cd android
-        chmod +x gradlew
-        ./gradlew assembleRelease
+      - name: Sync Capacitor
+        run: npx cap sync android
 
-    - name: Upload APK
-      uses: actions/upload-artifact@v4
-      with:
-        name: Healthy-Meal-APK
-        path: android/app/build/outputs/apk/release/app-release.apk
+      - name: Build APK
+        run: |
+          cd android
+          chmod +x gradlew
+          ./gradlew assembleDebug
+        env:
+          GRADLE_OPTS: "-Dorg.gradle.jvmargs=-Xmx2048m -XX:MaxMetaspaceSize=512m"
+
+      - name: Upload APK
+        uses: actions/upload-artifact@v4
+        with:
+          name: Healthy-Meal-APK
+          path: android/app/build/outputs/apk/debug/app-debug.apk
+          
