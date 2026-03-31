@@ -1,0 +1,13 @@
+{
+  "appId": "com.healthymeal.app",
+  "appName": "Healthy Meal",
+  "webDir": "dist",
+  "server": {
+    "androidScheme": "https"
+  },
+  "plugins": {
+    "SplashScreen": {
+      "launchShowDuration": 0
+    }
+  }
+}
