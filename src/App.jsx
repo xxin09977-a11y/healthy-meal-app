@@ -4,6 +4,7 @@ import SplashScreen from './SplashScreen'
 
 /* ── User Profile ───────────────────────────────────────────── */
 const USER = {
+  name:         'Zin',
   age:          37,
   gender:       'Male',
   heightCm:     162,
@@ -213,6 +214,68 @@ const MEALS = [
     tips: 'Choose raw or lightly dry-roasted almonds without added salt or oil. A banana with a few brown spots has more fructose and potassium than an unripe one. For extra protein, swap plain almonds for a tablespoon of almond butter. Perfect pre- or post-light exercise.',
     forYou: 'At 53 kg, this snack is perfectly calibrated — magnesium from almonds supports muscle function and metabolic reactions, while the banana\'s potassium aids cardiovascular health. Both are key micronutrients commonly under-consumed by men in their late 30s.',
   },
+
+  /* ── Myanmar Meals (IDs 14–17) ──────────────────────────── */
+  {
+    id: 14,
+    name: 'Mohinga',
+    mealType: 'Breakfast',
+    category: 'Protein',
+    emoji: '🍜',
+    photo: 'https://images.unsplash.com/photo-1569050467447-ce54b3bbc37d?w=800&q=80&auto=format&fit=crop',
+    calories: 350,
+    servingSize: '1 bowl — rice noodles + fish broth',
+    description: 'Myanmar\'s beloved national dish — delicate rice noodles in a rich, lemongrass-scented fish broth with banana trunk, crispy split-pea fritters and fresh herbs. The nation\'s favourite breakfast, eaten from street corners to homes right across the country.',
+    nutrients: { protein: '18g', carbs: '48g', fat: '8g', fiber: '3g' },
+    benefits: ['Lean fish protein', 'Anti-inflammatory', 'Sustained energy', 'Gut health'],
+    tips: 'Use fresh catfish or snakehead fish for the most authentic depth of flavour. Simmer the broth with lemongrass, galangal and banana trunk for at least 45 minutes. Top with crispy fried split-pea fritters, a soft-boiled egg and a squeeze of lime. Serve immediately for the full street-food experience.',
+    forYou: 'A perfect 350 kcal start for you, Zin — lean fish protein supports your 80g daily protein goal and provides the sustained energy your metabolism needs to power through the morning at 37.',
+  },
+  {
+    id: 15,
+    name: 'Myanmar Lunch Plate',
+    mealType: 'Lunch',
+    category: 'Protein',
+    emoji: '🍛',
+    photo: 'https://images.unsplash.com/photo-1585937421612-70a008356fbe?w=800&q=80&auto=format&fit=crop',
+    calories: 440,
+    servingSize: '1 cup brown rice + 150g steamed fish + kanzun soup',
+    description: 'A complete traditional Myanmar lunch: fragrant brown jasmine rice alongside Nga-baung (banana-leaf steamed fish with turmeric and shallots), paired with a light Kanzun Ywet (water spinach) soup. Simple, nourishing and deeply authentic.',
+    nutrients: { protein: '34g', carbs: '54g', fat: '10g', fiber: '6g' },
+    benefits: ['High protein', 'Omega-3', 'Iron from water spinach', 'Slow-release carbs'],
+    tips: 'Wrap the fish in banana leaves with turmeric, shallots, garlic and lemongrass and steam for 20 minutes — this locks in moisture and all the aromatics. For the Kanzun Ywet soup, briefly sauté water spinach in garlic before adding a light fish or vegetable stock. Keep it simple to retain the fresh, clean flavour.',
+    forYou: 'The 34g of protein in this traditional Myanmar lunch actively maintains your lean muscle, Zin. Brown jasmine rice releases carbohydrates more slowly than white rice, helping sustain energy and blood sugar stability through your afternoon.',
+  },
+  {
+    id: 16,
+    name: 'Burmese Grilled Chicken',
+    mealType: 'Dinner',
+    category: 'Protein',
+    emoji: '🍗',
+    photo: 'https://images.unsplash.com/photo-1598515213692-6114abac6c6c?w=800&q=80&auto=format&fit=crop',
+    calories: 330,
+    servingSize: '200g chicken thigh + spice marinade',
+    description: 'Tender chicken marinated in an aromatic Burmese spice blend — turmeric, lemongrass, garlic, ginger and a hint of shrimp paste — then grilled over charcoal until golden with slightly charred edges. Intensely flavourful and incredibly lean.',
+    nutrients: { protein: '38g', carbs: '8g', fat: '14g', fiber: '2g' },
+    benefits: ['High protein', 'Turmeric anti-inflammatory', 'Low carb', 'Metabolism support'],
+    tips: 'Marinate for at least 4 hours — overnight gives the deepest flavour penetration. The turmeric and lemongrass combination is both delicious and powerfully anti-inflammatory. Serve with sliced cucumbers, fresh tomatoes and a squeeze of lime. Charcoal grilling adds irreplaceable smoky depth.',
+    forYou: 'An exceptional high-protein dinner, Zin — 38g of lean protein is ideal for overnight muscle repair at 53 kg. The turmeric marinade delivers curcumin, one of the most potent anti-inflammatory compounds — increasingly important as you approach your 40s.',
+  },
+  {
+    id: 17,
+    name: 'Fresh Tropical Fruits',
+    mealType: 'Snack',
+    category: 'Fruits',
+    emoji: '🍑',
+    photo: 'https://images.unsplash.com/photo-1490474418585-ba9bad8fd0ea?w=800&q=80&auto=format&fit=crop',
+    calories: 185,
+    servingSize: '1 plate — mixed seasonal fruits',
+    description: 'A colourful plate of Myanmar\'s finest seasonal tropical fruits — ripe mango, sweet papaya, juicy watermelon and vibrant dragon fruit. Packed with natural vitamins, digestive enzymes and antioxidants that nourish without weighing you down.',
+    nutrients: { protein: '2g', carbs: '45g', fat: '1g', fiber: '5g' },
+    benefits: ['Vitamin C', 'Digestive enzymes', 'Antioxidants', 'Natural hydration'],
+    tips: 'Serve slightly chilled for maximum refreshment. Ripe mango with deep orange flesh has the most beta-carotene. A light squeeze of lime juice elevates all the flavours and adds extra Vitamin C. Eat after meals — papaya contains papain, a natural enzyme that actively supports protein digestion.',
+    forYou: 'Only 185 kcal yet bursting with Vitamins C and A — this tropical snack fits perfectly into your 1,900 kcal day without disrupting your weight, Zin. Digestive enzymes from papaya and mango support gut health, a key priority for long-term wellness at 37.',
+  },
 ]
 
 /* ── Day Plan Configuration ─────────────────────────────────── */
@@ -223,7 +286,7 @@ const DAY_PLAN = [
     time:        '7:00 – 9:00 am',
     accentColor: '#f59e0b',
     bgColor:     'rgba(245,158,11,0.08)',
-    choiceIds:   [1, 2],   // Greek Yogurt Parfait  OR  Overnight Oats & Chia
+    choiceIds:   [14],     // Mohinga
   },
   {
     slot:        'Lunch',
@@ -231,7 +294,7 @@ const DAY_PLAN = [
     time:        '12:00 – 1:30 pm',
     accentColor: '#34d399',
     bgColor:     'rgba(52,211,153,0.08)',
-    choiceIds:   [5],      // Chicken & Brown Rice Bowl
+    choiceIds:   [15],     // Myanmar Lunch Plate (Brown Rice + Steamed Fish + Kanzun Ywet Soup)
   },
   {
     slot:        'Dinner',
@@ -239,7 +302,7 @@ const DAY_PLAN = [
     time:        '6:30 – 8:00 pm',
     accentColor: '#818cf8',
     bgColor:     'rgba(129,140,248,0.08)',
-    choiceIds:   [8],      // Sweet Potato Chickpea Curry
+    choiceIds:   [16],     // Burmese Grilled Chicken
   },
   {
     slot:        'Snack',
@@ -247,7 +310,7 @@ const DAY_PLAN = [
     time:        'Anytime',
     accentColor: '#fb923c',
     bgColor:     'rgba(251,146,60,0.08)',
-    choiceIds:   [13],     // Almonds & Banana
+    choiceIds:   [17],     // Fresh Tropical Fruits
   },
 ]
 
@@ -259,9 +322,17 @@ const CATEGORY_EMOJI = {
 }
 
 /* ════════════════════════════════════════════════════════════
-   PROFILE DASHBOARD
+   PROFILE DASHBOARD  (collapsed by default, tap to expand)
 ════════════════════════════════════════════════════════════ */
+const XLogo = ({ size = 20 }) => (
+  <svg viewBox="0 0 24 24" fill="currentColor" width={size} height={size} aria-hidden="true">
+    <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.746l7.73-8.835L1.254 2.25H8.08l4.259 5.63L18.244 2.25zm-1.161 17.52h1.833L7.084 4.126H5.117L17.083 19.77z" />
+  </svg>
+)
+
 function ProfileDashboard() {
+  const [expanded, setExpanded] = useState(false)
+
   const macros = [
     { label: 'Protein', emoji: '💪', value: USER.goalProtein, unit: 'g', color: '#34d399', kcal: USER.goalProtein * 4 },
     { label: 'Carbs',   emoji: '🌾', value: USER.goalCarbs,   unit: 'g', color: '#fbbf24', kcal: USER.goalCarbs * 4   },
@@ -269,101 +340,121 @@ function ProfileDashboard() {
   ]
   const totalMacroKcal = macros.reduce((s, m) => s + m.kcal, 0)
 
+  const toggle = () => setExpanded(v => !v)
+
   return (
     <div className="profile-dashboard">
 
-      {/* Top row: avatar + title + BMI badge */}
-      <div className="pd-toprow">
+      {/* ── Always-visible top bar — tap anywhere to expand/collapse ── */}
+      <div
+        className="pd-toprow"
+        onClick={toggle}
+        role="button"
+        tabIndex={0}
+        onKeyDown={(e) => (e.key === 'Enter' || e.key === ' ') && toggle()}
+        aria-expanded={expanded}
+        aria-label={expanded ? 'Collapse profile details' : 'Expand profile details'}
+      >
         <div className="pd-identity">
+          {/* X logo avatar */}
           <div className="pd-avatar-ring">
-            <span className="pd-avatar-emoji">👤</span>
+            <XLogo size={22} />
           </div>
           <div className="pd-identity-text">
-            <div className="pd-name">Your Profile</div>
-            <div className="pd-tagline">37-year-old Male · Healthy Weight</div>
+            <div className="pd-name">{USER.name}</div>
+            <div className="pd-tagline">{USER.age}-year-old Male · Healthy Weight</div>
           </div>
         </div>
-        <div className="pd-bmi-badge">
-          <div className="pd-bmi-num">{USER.bmi}</div>
-          <div className="pd-bmi-lbl">BMI</div>
-          <div className="pd-bmi-status">Healthy ✓</div>
-        </div>
-      </div>
 
-      {/* Stats strip */}
-      <div className="pd-stats-strip">
-        {[
-          { icon: '🎂', value: USER.age,      unit: 'yrs',  label: 'Age'    },
-          { icon: '📏', value: USER.heightCm, unit: 'cm',   label: 'Height' },
-          { icon: '⚖️', value: USER.weightKg, unit: 'kg',   label: 'Weight' },
-          { icon: '⚡', value: USER.bmr,       unit: 'kcal', label: 'BMR'    },
-        ].map((s, i, arr) => (
-          <React.Fragment key={s.label}>
-            <div className="pd-stat-item">
-              <span className="pd-stat-icon">{s.icon}</span>
-              <span className="pd-stat-val">{s.value}<em>{s.unit}</em></span>
-              <span className="pd-stat-lbl">{s.label}</span>
-            </div>
-            {i < arr.length - 1 && <div className="pd-stat-divider" />}
-          </React.Fragment>
-        ))}
-      </div>
-
-      {/* Calorie target */}
-      <div className="pd-calorie-card">
-        <div className="pd-calorie-left">
-          <div className="pd-calorie-eyebrow">🔥 Daily Calorie Target</div>
-          <div className="pd-calorie-number">{USER.goalCalories.toLocaleString()}</div>
-          <div className="pd-calorie-unit">kcal / day</div>
-        </div>
-        <div className="pd-calorie-right">
-          <div className="pd-calorie-formula">
-            <div className="pd-formula-row">
-              <span className="pd-formula-label">BMR</span>
-              <span className="pd-formula-value">{USER.bmr} kcal</span>
-            </div>
-            <div className="pd-formula-operator">×</div>
-            <div className="pd-formula-row">
-              <span className="pd-formula-label">Activity</span>
-              <span className="pd-formula-value">1.4×</span>
-            </div>
-            <div className="pd-formula-operator">=</div>
-            <div className="pd-formula-row pd-formula-result">
-              <span className="pd-formula-label">Target</span>
-              <span className="pd-formula-value">{USER.goalCalories} kcal</span>
-            </div>
+        <div className="pd-toprow-right">
+          <div className="pd-bmi-badge">
+            <div className="pd-bmi-num">{USER.bmi}</div>
+            <div className="pd-bmi-lbl">BMI</div>
+            <div className="pd-bmi-status">Healthy ✓</div>
+          </div>
+          {/* Chevron */}
+          <div className={`pd-chevron ${expanded ? 'pd-chevron--open' : ''}`}>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"
+              width="16" height="16" aria-hidden="true">
+              <polyline points="6 9 12 15 18 9" />
+            </svg>
           </div>
         </div>
       </div>
 
-      {/* Macro targets */}
-      <div className="pd-macros-section">
-        <div className="pd-macros-header">
-          <span className="pd-macros-title">DAILY MACRO TARGETS</span>
-          <span className="pd-macros-total">{totalMacroKcal} kcal accounted</span>
-        </div>
-        {macros.map(m => {
-          const pct = Math.round((m.kcal / USER.goalCalories) * 100)
-          const barW = Math.round((m.kcal / (USER.goalCarbs * 4)) * 100) // normalised to carbs
-          return (
-            <div key={m.label} className="pd-macro-row">
-              <span className="pd-macro-emoji">{m.emoji}</span>
-              <span className="pd-macro-name">{m.label}</span>
-              <div className="pd-macro-bar-track">
-                <div
-                  className="pd-macro-bar-fill"
-                  style={{ width: `${barW}%`, background: m.color }}
-                />
+      {/* ── Expandable details ── */}
+      <div className={`pd-expandable ${expanded ? 'pd-expandable--open' : ''}`}>
+
+        {/* Stats strip */}
+        <div className="pd-stats-strip">
+          {[
+            { icon: '🎂', value: USER.age,      unit: 'yrs',  label: 'Age'    },
+            { icon: '📏', value: USER.heightCm, unit: 'cm',   label: 'Height' },
+            { icon: '⚖️', value: USER.weightKg, unit: 'kg',   label: 'Weight' },
+            { icon: '⚡', value: USER.bmr,       unit: 'kcal', label: 'BMR'    },
+          ].map((s, i, arr) => (
+            <React.Fragment key={s.label}>
+              <div className="pd-stat-item">
+                <span className="pd-stat-icon">{s.icon}</span>
+                <span className="pd-stat-val">{s.value}<em>{s.unit}</em></span>
+                <span className="pd-stat-lbl">{s.label}</span>
               </div>
-              <span className="pd-macro-val" style={{ color: m.color }}>
-                {m.value}{m.unit}
-              </span>
-              <span className="pd-macro-pct">{pct}%</span>
-            </div>
-          )
-        })}
-      </div>
+              {i < arr.length - 1 && <div className="pd-stat-divider" />}
+            </React.Fragment>
+          ))}
+        </div>
 
+        {/* Calorie target */}
+        <div className="pd-calorie-card">
+          <div className="pd-calorie-left">
+            <div className="pd-calorie-eyebrow">🔥 Daily Calorie Target</div>
+            <div className="pd-calorie-number">{USER.goalCalories.toLocaleString()}</div>
+            <div className="pd-calorie-unit">kcal / day</div>
+          </div>
+          <div className="pd-calorie-right">
+            <div className="pd-calorie-formula">
+              <div className="pd-formula-row">
+                <span className="pd-formula-label">BMR</span>
+                <span className="pd-formula-value">{USER.bmr} kcal</span>
+              </div>
+              <div className="pd-formula-operator">×</div>
+              <div className="pd-formula-row">
+                <span className="pd-formula-label">Activity</span>
+                <span className="pd-formula-value">1.4×</span>
+              </div>
+              <div className="pd-formula-operator">=</div>
+              <div className="pd-formula-row pd-formula-result">
+                <span className="pd-formula-label">Target</span>
+                <span className="pd-formula-value">{USER.goalCalories} kcal</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {/* Macro targets */}
+        <div className="pd-macros-section">
+          <div className="pd-macros-header">
+            <span className="pd-macros-title">DAILY MACRO TARGETS</span>
+            <span className="pd-macros-total">{totalMacroKcal} kcal accounted</span>
+          </div>
+          {macros.map(m => {
+            const pct  = Math.round((m.kcal / USER.goalCalories) * 100)
+            const barW = Math.round((m.kcal / (USER.goalCarbs * 4)) * 100)
+            return (
+              <div key={m.label} className="pd-macro-row">
+                <span className="pd-macro-emoji">{m.emoji}</span>
+                <span className="pd-macro-name">{m.label}</span>
+                <div className="pd-macro-bar-track">
+                  <div className="pd-macro-bar-fill" style={{ width: `${barW}%`, background: m.color }} />
+                </div>
+                <span className="pd-macro-val" style={{ color: m.color }}>{m.value}{m.unit}</span>
+                <span className="pd-macro-pct">{pct}%</span>
+              </div>
+            )
+          })}
+        </div>
+
+      </div>
     </div>
   )
 }
@@ -390,7 +481,7 @@ function DailyMealPlan({ onMealClick }) {
       <div className="dmp-header">
         <div className="dmp-header-left">
           <div className="dmp-title">📋 Today's Meal Plan</div>
-          <div className="dmp-subtitle">Personalised for your {USER.goalCalories.toLocaleString()} kcal target</div>
+          <div className="dmp-subtitle">{USER.name}'s personalised Myanmar meal plan · {USER.goalCalories.toLocaleString()} kcal target</div>
         </div>
         <div className="dmp-total-box">
           <div className="dmp-total-num">{totalCals.toLocaleString()}</div>
@@ -687,8 +778,8 @@ function App() {
               </div>
             </div>
             <div className="header-profile-chip">
-              <span className="profile-avatar">👤</span>
-              <span className="profile-chip-label">37 · 162cm · 53kg</span>
+              <div className="header-x-icon"><XLogo size={12} /></div>
+              <span className="profile-chip-label">{USER.name}</span>
             </div>
           </div>
         </header>
