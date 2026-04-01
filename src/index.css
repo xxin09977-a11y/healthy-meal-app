@@ -160,10 +160,10 @@ header p {
   inset: 0;
   background: rgba(0, 0, 0, 0.55);
   display: flex;
-  align-items: center;
+  align-items: flex-end;        /* sheet slides up from bottom on mobile */
   justify-content: center;
   z-index: 1000;
-  padding: 20px;
+  padding: 0;
   animation: fadeIn 0.2s ease;
 }
 
@@ -172,48 +172,34 @@ header p {
   to   { opacity: 1; }
 }
 
+/* Flex column so the body can scroll independently of the hero */
 .modal-content {
   background: white;
-  border-radius: 16px;
+  border-radius: 20px 20px 0 0;
   width: 100%;
-  max-width: 420px;
+  max-width: 480px;
+  max-height: 92vh;
+  display: flex;
+  flex-direction: column;
   overflow: hidden;
-  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
-  position: relative;
-  animation: slideUp 0.25s ease;
+  box-shadow: 0 -8px 40px rgba(0, 0, 0, 0.25);
+  animation: slideUp 0.28s cubic-bezier(0.34, 1.2, 0.64, 1);
 }
 
 @keyframes slideUp {
-  from { transform: translateY(30px); opacity: 0; }
-  to   { transform: translateY(0);    opacity: 1; }
+  from { transform: translateY(100%); }
+  to   { transform: translateY(0); }
 }
 
-.modal-close {
-  position: absolute;
-  top: 12px;
-  right: 12px;
-  background: rgba(0, 0, 0, 0.25);
-  border: none;
-  color: white;
-  width: 32px;
-  height: 32px;
-  border-radius: 50%;
-  font-size: 14px;
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  transition: background 0.2s;
-  z-index: 1;
-}
-
-.modal-close:hover {
-  background: rgba(0, 0, 0, 0.45);
+/* Hero — fixed height, never scrolls */
+.modal-hero {
+  position: relative;
+  flex-shrink: 0;
 }
 
 .modal-emoji {
   width: 100%;
-  height: 180px;
+  height: 160px;
   background: linear-gradient(135deg, #d1fae5 0%, #a7f3d0 100%);
   display: flex;
   align-items: center;
@@ -221,15 +207,49 @@ header p {
   font-size: 80px;
 }
 
+.modal-close {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  background: rgba(0, 0, 0, 0.28);
+  border: none;
+  color: white;
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  font-size: 14px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.2s;
+}
+
+.modal-close:hover {
+  background: rgba(0, 0, 0, 0.5);
+}
+
+/* Scrollable body — takes all remaining height */
 .modal-body {
-  padding: 24px;
+  padding: 20px 22px 36px;
+  overflow-y: auto;
+  flex: 1;
+  -webkit-overflow-scrolling: touch;
 }
 
 .modal-name {
-  font-size: 24px;
+  font-size: 22px;
   font-weight: 700;
   color: #059669;
   margin-bottom: 10px;
+}
+
+.modal-meta {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+  margin-bottom: 4px;
 }
 
 .modal-category {
@@ -238,26 +258,126 @@ header p {
   color: #059669;
   padding: 5px 14px;
   border-radius: 20px;
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.modal-serving {
   font-size: 13px;
-  font-weight: 600;
-  margin-bottom: 14px;
+  color: #6b7280;
+}
+
+.modal-section-title {
+  font-size: 12px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: #9ca3af;
+  margin: 18px 0 8px;
 }
 
 .modal-description {
-  font-size: 15px;
+  font-size: 14px;
   color: #4b5563;
-  line-height: 1.6;
-  margin-bottom: 16px;
+  line-height: 1.65;
 }
 
 .modal-calories {
-  font-size: 16px;
+  font-size: 15px;
   font-weight: 700;
-  color: #10b981;
+  color: #059669;
   background: #f0fdf4;
+  border: 1.5px solid #a7f3d0;
   padding: 10px 16px;
   border-radius: 10px;
-  display: inline-block;
+  margin-top: 14px;
+  display: block;
+  text-align: center;
+}
+
+/* ── Nutrient grid ─────────────────────────────────────── */
+
+.nutrient-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 8px;
+}
+
+.nutrient-card {
+  background: #f9fafb;
+  border-radius: 10px;
+  padding: 10px 6px;
+  text-align: center;
+  border-top: 3px solid #e5e7eb;
+}
+
+.nutrient-value {
+  font-size: 16px;
+  font-weight: 700;
+  margin-bottom: 2px;
+}
+
+.nutrient-label {
+  font-size: 10px;
+  color: #9ca3af;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  font-weight: 600;
+}
+
+/* ── Benefit tags ──────────────────────────────────────── */
+
+.benefits-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.benefit-tag {
+  background: #ecfdf5;
+  color: #065f46;
+  border: 1px solid #6ee7b7;
+  padding: 5px 12px;
+  border-radius: 20px;
+  font-size: 12px;
+  font-weight: 600;
+}
+
+/* ── Tips section ──────────────────────────────────────── */
+
+.modal-tips {
+  font-size: 14px;
+  color: #4b5563;
+  line-height: 1.65;
+  background: #fffbeb;
+  border-left: 3px solid #f59e0b;
+  padding: 12px 14px;
+  border-radius: 0 8px 8px 0;
+}
+
+/* ── Double-tap exit toast ─────────────────────────────── */
+
+.exit-toast {
+  position: fixed;
+  bottom: 32px;
+  left: 50%;
+  transform: translateX(-50%) translateY(20px);
+  background: rgba(17, 24, 39, 0.88);
+  color: white;
+  padding: 10px 22px;
+  border-radius: 24px;
+  font-size: 14px;
+  font-weight: 500;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.2s ease, transform 0.2s ease;
+  z-index: 2000;
+  white-space: nowrap;
+}
+
+.exit-toast--visible {
+  opacity: 1;
+  transform: translateX(-50%) translateY(0);
 }
 
 /* ── Responsive ───────────────────────────────────────── */
@@ -271,7 +391,7 @@ header p {
     font-size: 22px;
   }
 
-  .modal-content {
-    max-width: 100%;
+  .nutrient-grid {
+    grid-template-columns: repeat(2, 1fr);
   }
 }
