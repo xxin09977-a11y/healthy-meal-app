@@ -1,13 +1,15 @@
+/* ── Reset ─────────────────────────────────────────────── */
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
 }
 
+/* ── Dark base ─────────────────────────────────────────── */
 body {
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  background: linear-gradient(135deg, #f0fdf4 0%, #ecfdf5 100%);
-  color: #1f2937;
+  background: #0f172a;
+  color: #f1f5f9;
   min-height: 100vh;
 }
 
@@ -17,12 +19,13 @@ body {
   padding: 20px;
 }
 
+/* ── Header ────────────────────────────────────────────── */
 header {
-  background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+  background: linear-gradient(135deg, #065f46 0%, #064e3b 100%);
   color: white;
   padding: 20px;
   text-align: center;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.4);
 }
 
 header h1 {
@@ -32,9 +35,10 @@ header h1 {
 
 header p {
   font-size: 14px;
-  opacity: 0.9;
+  opacity: 0.85;
 }
 
+/* ── Meal grid ─────────────────────────────────────────── */
 .meal-grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
@@ -42,28 +46,45 @@ header p {
   margin-top: 30px;
 }
 
+/* ── Meal card ─────────────────────────────────────────── */
 .meal-card {
-  background: white;
+  background: #1e293b;
   border-radius: 12px;
   overflow: hidden;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.35);
   transition: transform 0.3s, box-shadow 0.3s;
   cursor: pointer;
+  border: 1px solid #334155;
 }
 
 .meal-card:hover {
   transform: translateY(-5px);
-  box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+  box-shadow: 0 10px 28px rgba(0, 0, 0, 0.5);
+  border-color: #10b981;
 }
 
+/* Real photo container */
 .meal-image {
   width: 100%;
   height: 200px;
-  background: linear-gradient(135deg, #d1fae5 0%, #a7f3d0 100%);
+  overflow: hidden;
+  background: #1e293b;
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 60px;
+  font-size: 60px;          /* fallback for emoji */
+}
+
+.meal-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: transform 0.4s ease;
+}
+
+.meal-card:hover .meal-image img {
+  transform: scale(1.06);
 }
 
 .meal-content {
@@ -74,22 +95,23 @@ header p {
   font-size: 18px;
   font-weight: 600;
   margin-bottom: 8px;
-  color: #059669;
+  color: #34d399;
 }
 
 .meal-category {
   display: inline-block;
-  background: #d1fae5;
-  color: #059669;
+  background: #064e3b;
+  color: #34d399;
   padding: 4px 12px;
   border-radius: 20px;
   font-size: 12px;
   margin-bottom: 10px;
+  border: 1px solid #065f46;
 }
 
 .meal-description {
   font-size: 13px;
-  color: #6b7280;
+  color: #94a3b8;
   line-height: 1.5;
   margin-bottom: 10px;
 }
@@ -100,21 +122,29 @@ header p {
   font-size: 14px;
 }
 
+/* ── Search box ────────────────────────────────────────── */
 .search-box {
-  background: white;
+  background: #1e293b;
   padding: 20px;
   border-radius: 12px;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
   margin-top: 20px;
+  border: 1px solid #334155;
 }
 
 .search-box input {
   width: 100%;
   padding: 12px;
-  border: 2px solid #d1d5db;
+  border: 2px solid #334155;
   border-radius: 8px;
   font-size: 16px;
   transition: border-color 0.3s;
+  background: #0f172a;
+  color: #f1f5f9;
+}
+
+.search-box input::placeholder {
+  color: #64748b;
 }
 
 .search-box input:focus {
@@ -122,6 +152,7 @@ header p {
   border-color: #10b981;
 }
 
+/* ── Category filter ───────────────────────────────────── */
 .category-filter {
   display: flex;
   gap: 10px;
@@ -131,36 +162,35 @@ header p {
 
 .filter-btn {
   padding: 8px 16px;
-  border: 2px solid #d1fae5;
-  background: white;
-  color: #059669;
+  border: 2px solid #334155;
+  background: #1e293b;
+  color: #94a3b8;
   border-radius: 20px;
   cursor: pointer;
   font-size: 13px;
   font-weight: 600;
-  transition: all 0.3s;
+  transition: all 0.25s;
 }
 
 .filter-btn.active {
   background: #10b981;
-  color: white;
+  color: #fff;
   border-color: #10b981;
 }
 
 .filter-btn:hover {
-  background: #10b981;
+  background: #059669;
   color: white;
-  border-color: #10b981;
+  border-color: #059669;
 }
 
 /* ── Detail Modal ─────────────────────────────────────── */
-
 .modal-overlay {
   position: fixed;
   inset: 0;
-  background: rgba(0, 0, 0, 0.55);
+  background: rgba(0, 0, 0, 0.7);
   display: flex;
-  align-items: flex-end;        /* sheet slides up from bottom on mobile */
+  align-items: flex-end;
   justify-content: center;
   z-index: 1000;
   padding: 0;
@@ -172,9 +202,8 @@ header p {
   to   { opacity: 1; }
 }
 
-/* Flex column so the body can scroll independently of the hero */
 .modal-content {
-  background: white;
+  background: #1e293b;
   border-radius: 20px 20px 0 0;
   width: 100%;
   max-width: 480px;
@@ -182,8 +211,9 @@ header p {
   display: flex;
   flex-direction: column;
   overflow: hidden;
-  box-shadow: 0 -8px 40px rgba(0, 0, 0, 0.25);
+  box-shadow: 0 -8px 40px rgba(0, 0, 0, 0.6);
   animation: slideUp 0.28s cubic-bezier(0.34, 1.2, 0.64, 1);
+  border-top: 1px solid #334155;
 }
 
 @keyframes slideUp {
@@ -191,7 +221,7 @@ header p {
   to   { transform: translateY(0); }
 }
 
-/* Hero — fixed height, never scrolls */
+/* Hero — real photo */
 .modal-hero {
   position: relative;
   flex-shrink: 0;
@@ -199,19 +229,27 @@ header p {
 
 .modal-emoji {
   width: 100%;
-  height: 160px;
-  background: linear-gradient(135deg, #d1fae5 0%, #a7f3d0 100%);
+  height: 200px;
+  background: #0f172a;
   display: flex;
   align-items: center;
   justify-content: center;
   font-size: 80px;
+  overflow: hidden;
+}
+
+.modal-emoji img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
 }
 
 .modal-close {
   position: absolute;
   top: 12px;
   right: 12px;
-  background: rgba(0, 0, 0, 0.28);
+  background: rgba(0, 0, 0, 0.55);
   border: none;
   color: white;
   width: 34px;
@@ -226,10 +264,10 @@ header p {
 }
 
 .modal-close:hover {
-  background: rgba(0, 0, 0, 0.5);
+  background: rgba(0, 0, 0, 0.82);
 }
 
-/* Scrollable body — takes all remaining height */
+/* Scrollable body */
 .modal-body {
   padding: 20px 22px 36px;
   overflow-y: auto;
@@ -240,7 +278,7 @@ header p {
 .modal-name {
   font-size: 22px;
   font-weight: 700;
-  color: #059669;
+  color: #34d399;
   margin-bottom: 10px;
 }
 
@@ -254,17 +292,18 @@ header p {
 
 .modal-category {
   display: inline-block;
-  background: #d1fae5;
-  color: #059669;
+  background: #064e3b;
+  color: #34d399;
   padding: 5px 14px;
   border-radius: 20px;
   font-size: 12px;
   font-weight: 700;
+  border: 1px solid #065f46;
 }
 
 .modal-serving {
   font-size: 13px;
-  color: #6b7280;
+  color: #64748b;
 }
 
 .modal-section-title {
@@ -272,22 +311,22 @@ header p {
   font-weight: 700;
   text-transform: uppercase;
   letter-spacing: 0.06em;
-  color: #9ca3af;
+  color: #64748b;
   margin: 18px 0 8px;
 }
 
 .modal-description {
   font-size: 14px;
-  color: #4b5563;
+  color: #cbd5e1;
   line-height: 1.65;
 }
 
 .modal-calories {
   font-size: 15px;
   font-weight: 700;
-  color: #059669;
-  background: #f0fdf4;
-  border: 1.5px solid #a7f3d0;
+  color: #34d399;
+  background: #0d2b1f;
+  border: 1.5px solid #065f46;
   padding: 10px 16px;
   border-radius: 10px;
   margin-top: 14px;
@@ -296,7 +335,6 @@ header p {
 }
 
 /* ── Nutrient grid ─────────────────────────────────────── */
-
 .nutrient-grid {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
@@ -304,11 +342,11 @@ header p {
 }
 
 .nutrient-card {
-  background: #f9fafb;
+  background: #0f172a;
   border-radius: 10px;
   padding: 10px 6px;
   text-align: center;
-  border-top: 3px solid #e5e7eb;
+  border-top: 3px solid #334155;
 }
 
 .nutrient-value {
@@ -319,14 +357,13 @@ header p {
 
 .nutrient-label {
   font-size: 10px;
-  color: #9ca3af;
+  color: #64748b;
   text-transform: uppercase;
   letter-spacing: 0.04em;
   font-weight: 600;
 }
 
 /* ── Benefit tags ──────────────────────────────────────── */
-
 .benefits-list {
   display: flex;
   flex-wrap: wrap;
@@ -334,9 +371,9 @@ header p {
 }
 
 .benefit-tag {
-  background: #ecfdf5;
-  color: #065f46;
-  border: 1px solid #6ee7b7;
+  background: #0d2b1f;
+  color: #6ee7b7;
+  border: 1px solid #065f46;
   padding: 5px 12px;
   border-radius: 20px;
   font-size: 12px;
@@ -344,26 +381,26 @@ header p {
 }
 
 /* ── Tips section ──────────────────────────────────────── */
-
 .modal-tips {
   font-size: 14px;
-  color: #4b5563;
+  color: #cbd5e1;
   line-height: 1.65;
-  background: #fffbeb;
+  background: #1c1608;
   border-left: 3px solid #f59e0b;
   padding: 12px 14px;
   border-radius: 0 8px 8px 0;
 }
 
 /* ── Double-tap exit toast ─────────────────────────────── */
-
 .exit-toast {
   position: fixed;
   bottom: 32px;
   left: 50%;
   transform: translateX(-50%) translateY(20px);
-  background: rgba(17, 24, 39, 0.88);
-  color: white;
+  background: rgba(248, 248, 255, 0.12);
+  backdrop-filter: blur(12px);
+  color: #f1f5f9;
+  border: 1px solid rgba(255,255,255,0.15);
   padding: 10px 22px;
   border-radius: 24px;
   font-size: 14px;
@@ -380,8 +417,126 @@ header p {
   transform: translateX(-50%) translateY(0);
 }
 
-/* ── Responsive ───────────────────────────────────────── */
+/* ── Splash Screen ─────────────────────────────────────── */
+.splash {
+  position: fixed;
+  inset: 0;
+  background: linear-gradient(160deg, #0d1f14 0%, #0f172a 50%, #071a11 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+  overflow: hidden;
+  transition: opacity 0.5s ease, transform 0.5s ease;
+}
 
+.splash--out {
+  opacity: 0;
+  transform: scale(1.06);
+  pointer-events: none;
+}
+
+/* Floating food particles */
+.splash-particle {
+  position: absolute;
+  font-size: 36px;
+  opacity: 0;
+  animation: particlePop 1.8s ease forwards;
+  filter: drop-shadow(0 4px 12px rgba(16, 185, 129, 0.35));
+}
+
+@keyframes particlePop {
+  0%   { opacity: 0; transform: scale(0) rotate(-20deg) translateY(30px); }
+  40%  { opacity: 0.9; transform: scale(1.15) rotate(8deg) translateY(-8px); }
+  60%  { transform: scale(0.95) rotate(-3deg) translateY(2px); }
+  80%  { opacity: 0.75; transform: scale(1.05) rotate(2deg); }
+  100% { opacity: 0.55; transform: scale(1) rotate(0deg) translateY(0); }
+}
+
+/* Center piece */
+.splash-center {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  animation: centerReveal 0.7s cubic-bezier(0.34, 1.4, 0.64, 1) 0.3s both;
+}
+
+@keyframes centerReveal {
+  from { opacity: 0; transform: scale(0.6) translateY(24px); }
+  to   { opacity: 1; transform: scale(1) translateY(0); }
+}
+
+.splash-logo-ring {
+  width: 108px;
+  height: 108px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #059669, #065f46);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 0 0 8px rgba(16, 185, 129, 0.18),
+              0 0 0 16px rgba(16, 185, 129, 0.08),
+              0 8px 40px rgba(16, 185, 129, 0.4);
+  animation: ringPulse 2s ease-in-out 1s infinite;
+}
+
+@keyframes ringPulse {
+  0%, 100% { box-shadow: 0 0 0 8px rgba(16, 185, 129, 0.18),
+                          0 0 0 16px rgba(16, 185, 129, 0.08),
+                          0 8px 40px rgba(16, 185, 129, 0.4); }
+  50%       { box-shadow: 0 0 0 12px rgba(16, 185, 129, 0.25),
+                          0 0 0 24px rgba(16, 185, 129, 0.1),
+                          0 8px 50px rgba(16, 185, 129, 0.55); }
+}
+
+.splash-logo-emoji {
+  font-size: 56px;
+  animation: logoSpin 0.6s ease 0.3s both;
+}
+
+@keyframes logoSpin {
+  from { transform: rotate(-30deg) scale(0.5); opacity: 0; }
+  to   { transform: rotate(0deg) scale(1);     opacity: 1; }
+}
+
+.splash-title {
+  font-size: 30px;
+  font-weight: 800;
+  color: #f1f5f9;
+  letter-spacing: -0.5px;
+  text-align: center;
+}
+
+.splash-subtitle {
+  font-size: 15px;
+  color: #34d399;
+  font-weight: 500;
+  text-align: center;
+  letter-spacing: 0.03em;
+}
+
+/* Loading dots */
+.splash-dots {
+  display: flex;
+  gap: 8px;
+  margin-top: 8px;
+}
+
+.splash-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #10b981;
+  animation: dotBounce 1.2s ease-in-out 0.8s infinite;
+}
+
+@keyframes dotBounce {
+  0%, 80%, 100% { transform: scale(0.7); opacity: 0.4; }
+  40%           { transform: scale(1.2); opacity: 1; }
+}
+
+/* ── Responsive ───────────────────────────────────────── */
 @media (max-width: 768px) {
   .meal-grid {
     grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));

@@ -1,5 +1,6 @@
-import React, { useState, useMemo, useEffect, useRef } from 'react'
+import React, { useState, useMemo, useEffect, useRef, useCallback } from 'react'
 import { App as CapApp } from '@capacitor/app'
+import SplashScreen from './SplashScreen'
 
 const MEALS = [
   {
@@ -7,6 +8,7 @@ const MEALS = [
     name: 'Grilled Salmon',
     category: 'Protein',
     emoji: '🐟',
+    photo: 'https://images.unsplash.com/photo-1519708227418-c8fd9a32b7a2?w=600&q=80&auto=format&fit=crop',
     calories: 280,
     servingSize: '150g fillet',
     description: 'Rich in Omega-3 fatty acids, perfect for heart health and brain function. Salmon is one of the most nutrient-dense foods available, packed with high-quality protein and essential fatty acids.',
@@ -19,6 +21,7 @@ const MEALS = [
     name: 'Quinoa Bowl',
     category: 'Grains',
     emoji: '🥣',
+    photo: 'https://images.unsplash.com/photo-1546069901-ba9599a7e63c?w=600&q=80&auto=format&fit=crop',
     calories: 220,
     servingSize: '1 cup cooked (185g)',
     description: 'One of the few plant foods that delivers all nine essential amino acids, making it a complete protein. Naturally gluten-free and packed with minerals like iron and magnesium.',
@@ -31,6 +34,7 @@ const MEALS = [
     name: 'Green Salad',
     category: 'Vegetables',
     emoji: '🥗',
+    photo: 'https://images.unsplash.com/photo-1512621776951-a57141f2eefd?w=600&q=80&auto=format&fit=crop',
     calories: 85,
     servingSize: '2 cups (100g)',
     description: 'A vibrant mix of leafy greens bursting with vitamins, minerals and phytonutrients. Low in calories yet high in water content, making it ideal for weight management and hydration.',
@@ -43,6 +47,7 @@ const MEALS = [
     name: 'Chicken Breast',
     category: 'Protein',
     emoji: '🍗',
+    photo: 'https://images.unsplash.com/photo-1604503468506-a8da13d82791?w=600&q=80&auto=format&fit=crop',
     calories: 165,
     servingSize: '150g breast',
     description: 'The gold standard of lean protein. Chicken breast is extremely low in fat while delivering an impressive protein punch — ideal for muscle building, recovery and keeping you full for longer.',
@@ -55,6 +60,7 @@ const MEALS = [
     name: 'Sweet Potato',
     category: 'Vegetables',
     emoji: '🍠',
+    photo: 'https://images.unsplash.com/photo-1596097635121-14b63b7a0c19?w=600&q=80&auto=format&fit=crop',
     calories: 103,
     servingSize: '1 medium (130g)',
     description: 'A nutritional powerhouse that provides a slow, sustained release of energy. Exceptionally high in beta-carotene (which converts to Vitamin A) and rich in dietary fibre that supports digestive health.',
@@ -67,6 +73,7 @@ const MEALS = [
     name: 'Greek Yogurt',
     category: 'Dairy',
     emoji: '🥛',
+    photo: 'https://images.unsplash.com/photo-1488477181946-6428a0291777?w=600&q=80&auto=format&fit=crop',
     calories: 100,
     servingSize: '170g (¾ cup)',
     description: 'Strained to remove excess whey, giving it a thick, creamy texture and a protein content nearly double that of regular yogurt. Loaded with live cultures that actively support your gut microbiome.',
@@ -79,6 +86,7 @@ const MEALS = [
     name: 'Avocado Toast',
     category: 'Grains',
     emoji: '🥑',
+    photo: 'https://images.unsplash.com/photo-1525351484163-7529414344d8?w=600&q=80&auto=format&fit=crop',
     calories: 240,
     servingSize: '1 slice with topping',
     description: 'A satisfying combination of slow-release whole grain carbohydrates and heart-healthy monounsaturated fats from avocado. Provides long-lasting energy without the mid-morning energy crash.',
@@ -91,6 +99,7 @@ const MEALS = [
     name: 'Berry Mix',
     category: 'Fruits',
     emoji: '🫐',
+    photo: 'https://images.unsplash.com/photo-1488900128323-21503983a07e?w=600&q=80&auto=format&fit=crop',
     calories: 60,
     servingSize: '1 cup (150g)',
     description: 'A colourful medley of blueberries, strawberries and raspberries delivering one of the highest antioxidant densities of any food. These compounds combat oxidative stress and support brain health and memory.',
@@ -103,6 +112,7 @@ const MEALS = [
     name: 'Lentil Soup',
     category: 'Legumes',
     emoji: '🍲',
+    photo: 'https://images.unsplash.com/photo-1547592180-85f173990554?w=600&q=80&auto=format&fit=crop',
     calories: 150,
     servingSize: '1 bowl (250ml)',
     description: 'A warming, deeply satisfying soup that is one of the best plant-based sources of both protein and iron. The high fibre content actively lowers LDL cholesterol and feeds beneficial gut bacteria.',
@@ -115,6 +125,7 @@ const MEALS = [
     name: 'Grilled Vegetables',
     category: 'Vegetables',
     emoji: '🥦',
+    photo: 'https://images.unsplash.com/photo-1540420773420-3366772f4999?w=600&q=80&auto=format&fit=crop',
     calories: 75,
     servingSize: '1 cup mixed (150g)',
     description: 'A nutrient-dense, low-calorie dish that celebrates seasonal produce. Grilling preserves far more nutrients than boiling while adding a smoky char that enhances the natural sweetness of each vegetable.',
@@ -127,6 +138,7 @@ const MEALS = [
     name: 'Brown Rice',
     category: 'Grains',
     emoji: '🍚',
+    photo: 'https://images.unsplash.com/photo-1536304993881-ff86e0c9b915?w=600&q=80&auto=format&fit=crop',
     calories: 215,
     servingSize: '1 cup cooked (195g)',
     description: 'Unlike white rice, brown rice retains its bran and germ layers, making it far richer in fibre, vitamins and minerals. It releases glucose slowly into the bloodstream, providing steady, long-lasting energy.',
@@ -139,6 +151,7 @@ const MEALS = [
     name: 'Almond Butter',
     category: 'Nuts',
     emoji: '🥜',
+    photo: 'https://images.unsplash.com/photo-1598187198094-4be7c8ff8956?w=600&q=80&auto=format&fit=crop',
     calories: 190,
     servingSize: '2 tbsp (32g)',
     description: 'A rich, creamy spread made from whole almonds — one of the most nutritious nuts available. A concentrated source of Vitamin E, magnesium and heart-healthy monounsaturated fats that promote lasting satiety.',
@@ -155,9 +168,18 @@ function MealModal({ meal, onClose }) {
     <div className="modal-overlay" onClick={onClose}>
       <div className="modal-content" onClick={(e) => e.stopPropagation()}>
 
-        {/* Fixed hero — always visible, never scrolls */}
+        {/* Fixed hero — real photo, never scrolls */}
         <div className="modal-hero">
-          <div className="modal-emoji">{meal.emoji}</div>
+          <div className="modal-emoji">
+            <img
+              src={meal.photo}
+              alt={meal.name}
+              onError={(e) => {
+                e.target.style.display = 'none'
+                e.target.parentNode.textContent = meal.emoji
+              }}
+            />
+          </div>
           <button className="modal-close" onClick={onClose} aria-label="Close">✕</button>
         </div>
 
@@ -177,10 +199,10 @@ function MealModal({ meal, onClose }) {
           <div className="modal-section-title">📊 Nutrition per serving</div>
           <div className="nutrient-grid">
             {[
-              { label: 'Protein', value: meal.nutrients.protein, color: '#059669' },
-              { label: 'Carbs',   value: meal.nutrients.carbs,   color: '#d97706' },
-              { label: 'Fat',     value: meal.nutrients.fat,     color: '#7c3aed' },
-              { label: 'Fiber',   value: meal.nutrients.fiber,   color: '#0891b2' },
+              { label: 'Protein', value: meal.nutrients.protein, color: '#34d399' },
+              { label: 'Carbs',   value: meal.nutrients.carbs,   color: '#fbbf24' },
+              { label: 'Fat',     value: meal.nutrients.fat,     color: '#a78bfa' },
+              { label: 'Fiber',   value: meal.nutrients.fiber,   color: '#38bdf8' },
             ].map(n => (
               <div key={n.label} className="nutrient-card" style={{ borderTopColor: n.color }}>
                 <div className="nutrient-value" style={{ color: n.color }}>{n.value}</div>
@@ -208,7 +230,17 @@ function MealCard({ meal, onClick }) {
   return (
     <div className="meal-card" onClick={onClick} role="button" tabIndex={0}
       onKeyDown={(e) => e.key === 'Enter' && onClick()}>
-      <div className="meal-image">{meal.emoji}</div>
+      <div className="meal-image">
+        <img
+          src={meal.photo}
+          alt={meal.name}
+          loading="lazy"
+          onError={(e) => {
+            e.target.style.display = 'none'
+            e.target.parentNode.textContent = meal.emoji
+          }}
+        />
+      </div>
       <div className="meal-content">
         <div className="meal-name">{meal.name}</div>
         <span className="meal-category">{meal.category}</span>
@@ -220,13 +252,14 @@ function MealCard({ meal, onClick }) {
 }
 
 function App() {
-  const [searchTerm, setSearchTerm] = useState('')
+  const [splashDone, setSplashDone]           = useState(false)
+  const [searchTerm, setSearchTerm]           = useState('')
   const [selectedCategory, setSelectedCategory] = useState('All')
-  const [selectedMeal, setSelectedMeal] = useState(null)
-  const [showExitToast, setShowExitToast] = useState(false)
+  const [selectedMeal, setSelectedMeal]       = useState(null)
+  const [showExitToast, setShowExitToast]     = useState(false)
 
   // Refs so the back-button listener never captures stale state
-  const selectedMealRef = useRef(null)
+  const selectedMealRef  = useRef(null)
   const lastBackPressRef = useRef(null)
   const exitToastTimerRef = useRef(null)
 
@@ -245,10 +278,8 @@ function App() {
 
       const now = Date.now()
       if (lastBackPressRef.current && now - lastBackPressRef.current < 2000) {
-        // Second press within 2 s → exit the app
         CapApp.exitApp()
       } else {
-        // First press → show toast and record timestamp
         lastBackPressRef.current = now
         setShowExitToast(true)
         clearTimeout(exitToastTimerRef.current)
@@ -268,62 +299,68 @@ function App() {
   const filteredMeals = useMemo(() => {
     return MEALS.filter(meal => {
       const matchesSearch = meal.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-                          meal.description.toLowerCase().includes(searchTerm.toLowerCase())
+                            meal.description.toLowerCase().includes(searchTerm.toLowerCase())
       const matchesCategory = selectedCategory === 'All' || meal.category === selectedCategory
       return matchesSearch && matchesCategory
     })
   }, [searchTerm, selectedCategory])
 
-  return (
-    <div>
-      <header>
-        <h1>🥗 Healthy Meal App</h1>
-        <p>Discover nutritious meals for a healthier lifestyle</p>
-      </header>
+  const handleSplashDone = useCallback(() => setSplashDone(true), [])
 
-      <div className="container">
-        <div className="search-box">
-          <input
-            type="text"
-            placeholder="Search meals..."
-            value={searchTerm}
-            onChange={(e) => setSearchTerm(e.target.value)}
-          />
-          <div className="category-filter">
-            {CATEGORIES.map(category => (
-              <button
-                key={category}
-                className={`filter-btn ${selectedCategory === category ? 'active' : ''}`}
-                onClick={() => setSelectedCategory(category)}
-              >
-                {category}
-              </button>
+  return (
+    <>
+      {!splashDone && <SplashScreen onDone={handleSplashDone} />}
+
+      <div>
+        <header>
+          <h1>🥗 Healthy Meal App</h1>
+          <p>Discover nutritious meals for a healthier lifestyle</p>
+        </header>
+
+        <div className="container">
+          <div className="search-box">
+            <input
+              type="text"
+              placeholder="Search meals..."
+              value={searchTerm}
+              onChange={(e) => setSearchTerm(e.target.value)}
+            />
+            <div className="category-filter">
+              {CATEGORIES.map(category => (
+                <button
+                  key={category}
+                  className={`filter-btn ${selectedCategory === category ? 'active' : ''}`}
+                  onClick={() => setSelectedCategory(category)}
+                >
+                  {category}
+                </button>
+              ))}
+            </div>
+          </div>
+
+          <div className="meal-grid">
+            {filteredMeals.map(meal => (
+              <MealCard key={meal.id} meal={meal} onClick={() => setSelectedMeal(meal)} />
             ))}
           </div>
+
+          {filteredMeals.length === 0 && (
+            <div style={{ textAlign: 'center', marginTop: '40px', color: '#64748b' }}>
+              <p style={{ fontSize: '18px' }}>No meals found. Try a different search!</p>
+            </div>
+          )}
         </div>
 
-        <div className="meal-grid">
-          {filteredMeals.map(meal => (
-            <MealCard key={meal.id} meal={meal} onClick={() => setSelectedMeal(meal)} />
-          ))}
-        </div>
-
-        {filteredMeals.length === 0 && (
-          <div style={{ textAlign: 'center', marginTop: '40px', color: '#6b7280' }}>
-            <p style={{ fontSize: '18px' }}>No meals found. Try a different search!</p>
-          </div>
+        {selectedMeal && (
+          <MealModal meal={selectedMeal} onClose={() => setSelectedMeal(null)} />
         )}
-      </div>
 
-      {selectedMeal && (
-        <MealModal meal={selectedMeal} onClose={() => setSelectedMeal(null)} />
-      )}
-
-      {/* Double-tap-to-exit toast */}
-      <div className={`exit-toast ${showExitToast ? 'exit-toast--visible' : ''}`}>
-        Press back again to exit
+        {/* Double-tap-to-exit toast */}
+        <div className={`exit-toast ${showExitToast ? 'exit-toast--visible' : ''}`}>
+          Press back again to exit
+        </div>
       </div>
-    </div>
+    </>
   )
 }
 
