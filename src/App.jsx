@@ -101,9 +101,27 @@ const MEALS = [
 
 const CATEGORIES = ['All', 'Protein', 'Vegetables', 'Grains', 'Fruits', 'Dairy', 'Legumes', 'Nuts']
 
-function MealCard({ meal }) {
+function MealModal({ meal, onClose }) {
   return (
-    <div className="meal-card">
+    <div className="modal-overlay" onClick={onClose}>
+      <div className="modal-content" onClick={(e) => e.stopPropagation()}>
+        <button className="modal-close" onClick={onClose} aria-label="Close">✕</button>
+        <div className="modal-emoji">{meal.emoji}</div>
+        <div className="modal-body">
+          <h2 className="modal-name">{meal.name}</h2>
+          <span className="modal-category">{meal.category}</span>
+          <p className="modal-description">{meal.description}</p>
+          <div className="modal-calories">🔥 {meal.calories} calories per serving</div>
+        </div>
+      </div>
+    </div>
+  )
+}
+
+function MealCard({ meal, onClick }) {
+  return (
+    <div className="meal-card" onClick={onClick} role="button" tabIndex={0}
+      onKeyDown={(e) => e.key === 'Enter' && onClick()}>
       <div className="meal-image">{meal.emoji}</div>
       <div className="meal-content">
         <div className="meal-name">{meal.name}</div>
@@ -118,6 +136,7 @@ function MealCard({ meal }) {
 function App() {
   const [searchTerm, setSearchTerm] = useState('')
   const [selectedCategory, setSelectedCategory] = useState('All')
+  const [selectedMeal, setSelectedMeal] = useState(null)
 
   const filteredMeals = useMemo(() => {
     return MEALS.filter(meal => {
@@ -158,7 +177,7 @@ function App() {
 
         <div className="meal-grid">
           {filteredMeals.map(meal => (
-            <MealCard key={meal.id} meal={meal} />
+            <MealCard key={meal.id} meal={meal} onClick={() => setSelectedMeal(meal)} />
           ))}
         </div>
 
@@ -168,6 +187,10 @@ function App() {
           </div>
         )}
       </div>
+
+      {selectedMeal && (
+        <MealModal meal={selectedMeal} onClose={() => setSelectedMeal(null)} />
+      )}
     </div>
   )
 }
