@@ -43,8 +43,8 @@ export default function SplashScreen({ onDone }) {
           <span className="splash-logo-emoji">🥗</span>
         </div>
 
-        <h1 className="splash-title">Healthy Meal</h1>
-        <p className="splash-subtitle">Discover nutritious meals</p>
+        <h1 className="splash-title">Healthy Meal App</h1>
+        <p className="splash-subtitle">Personalised for your lifestyle</p>
 
         <div className="splash-dots">
           <span className="splash-dot" style={{ animationDelay: '0ms'   }} />
